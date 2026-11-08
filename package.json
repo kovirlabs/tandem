@@ -2,7 +2,8 @@
   "name": "tandem",
   "private": true,
   "version": "0.1.0",
-  "description": "Tandem — an AI body-doubling companion (Kovir Labs)",
+  "description": "Tandem \u2014 an AI body-doubling companion (Kovir Labs)",
+  "packageManager": "pnpm@11.25.0",
   "license": "GPL-3.0-or-later",
   "scripts": {
     "tauri": "tauri",

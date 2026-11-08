@@ -14,8 +14,8 @@ Read this first if you're picking the project up in a new session or on another 
   barge-in echo in hands-free mode, and whether the global shortcut registers.
 - **Windows install:** download the installer from Actions → "Windows installer" (artifact
   `tandem-windows-installer`), or run `install-windows.bat` from a source checkout.
-- **First GitHub CI run** (3 OSes) and the first Windows build were started 2026-11-08. If they
-  failed, fixing them comes before anything else.
+- **CI is green** on macOS, Ubuntu and Windows, and the Windows installer workflow builds
+  (2026-11-08). CI uses the latest stable Rust, so new lints can show up there before they do locally.
 - **AI provider for testing:** Ollama on the LAN at `http://192.168.86.43:11434`, model
   `qwen3:14b` (or `hermes3:8b` for faster voice replies). Tick "I control this computer". The
   Anthropic key goes in Settings (OS keychain/Credential Manager), never in a file.

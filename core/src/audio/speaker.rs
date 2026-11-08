@@ -447,12 +447,17 @@ impl SpeakerPipeline {
         if gen != self.current_gen() {
             return;
         }
-        let prev = self
-            .pending
-            .fetch_update(Ordering::SeqCst, Ordering::SeqCst, |n| {
-                Some(n.saturating_sub(1))
-            })
-            .unwrap_or(0);
+        // Saturating decrement. A CAS loop instead of `fetch_update`, which newer toolchains
+        // deprecate (renamed `try_update`) while older ones lack the new name.
+        let mut prev = self.pending.load(Ordering::SeqCst);
+        while let Err(actual) = self.pending.compare_exchange_weak(
+            prev,
+            prev.saturating_sub(1),
+            Ordering::SeqCst,
+            Ordering::SeqCst,
+        ) {
+            prev = actual;
+        }
         if prev <= 1 {
             self.clear_talking();
             self.emit_level(0.0);

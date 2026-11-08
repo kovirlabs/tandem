@@ -24,9 +24,8 @@ jobs:
     timeout-minutes: 60
     permissions:
       contents: write # only used to create the draft release on tag pushes
-    env:
-      # Use whisper.cpp's bundled Rust bindings so the build doesn't need LLVM/libclang.
-      WHISPER_DONT_GENERATE_BINDINGS: "1"
+    # whisper.cpp's Rust bindings are generated with bindgen; windows-latest ships LLVM/libclang.
+    # (Its bundled pre-generated bindings assume 64-bit `long` and fail to compile on Windows.)
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable

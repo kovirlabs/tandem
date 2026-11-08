@@ -35,7 +35,7 @@ stored in your system keychain.
 ## Windows test install
 Copy this folder to the Windows PC (a short path like `C:\tandem` is safest) and double-click
 `install-windows.bat`. It installs the build tools with winget (VS C++ Build Tools, Rust, Node.js,
-pnpm, CMake), builds the installer, and runs it. Builds are unsigned, so SmartScreen will ask you to
+pnpm, CMake, LLVM), builds the installer, and runs it. Builds are unsigned, so SmartScreen will ask you to
 confirm ("More info" → "Run anyway"). Use `install-windows.bat -NoInstall` to only build the `.exe`.
 
 ## Development

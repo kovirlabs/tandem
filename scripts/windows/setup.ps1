@@ -5,7 +5,7 @@
 
 .DESCRIPTION
   1. Installs missing build tools with winget: Visual Studio Build Tools (C++), Rust, Node.js,
-     pnpm and CMake. Windows asks for admin approval (UAC) for some of these.
+     pnpm, CMake and LLVM. Windows asks for admin approval (UAC) for some of these.
   2. Builds the Tandem installer (NSIS .exe) with `pnpm tauri build`.
   3. Runs the installer.
 
@@ -95,6 +95,10 @@ if (-not $SkipPrereqs) {
     }
 
     if (Have 'cmake') { Note "CMake: found" } else { Install-WithWinget 'Kitware.CMake' }
+
+    # whisper.cpp's Rust bindings are generated with bindgen, which needs libclang.
+    if (Test-Path (Join-Path $env:ProgramFiles 'LLVM\bin\libclang.dll')) { Note "LLVM: found" }
+    else { Install-WithWinget 'LLVM.LLVM' }
 }
 
 # The CMake installer doesn't always add itself to PATH.
@@ -113,8 +117,10 @@ Set-Location $Root
 if ($LASTEXITCODE -ne 0) { throw "pnpm install failed." }
 
 Step "Building Tandem (the first build takes 10-20 minutes)"
-# Use whisper.cpp's bundled Rust bindings so the build doesn't need LLVM/libclang.
-$env:WHISPER_DONT_GENERATE_BINDINGS = '1'
+# Point bindgen at LLVM's libclang (whisper.cpp bindings). Its bundled pre-generated bindings
+# assume a 64-bit C `long` and don't compile on Windows.
+$llvmBin = Join-Path $env:ProgramFiles 'LLVM\bin'
+if (-not $env:LIBCLANG_PATH -and (Test-Path (Join-Path $llvmBin 'libclang.dll'))) { $env:LIBCLANG_PATH = $llvmBin }
 & pnpm tauri build --bundles nsis
 if ($LASTEXITCODE -ne 0) { throw "The build failed. Scroll up for the first 'error' line." }
 

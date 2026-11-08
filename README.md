@@ -32,6 +32,12 @@ address (e.g. `http://192.168.1.20:11434`), press **Find models**, and tick "I c
 computer" so it's treated as local for privacy rules. For Anthropic, paste an API key; it's
 stored in your system keychain.
 
+## Windows test install
+Copy this folder to the Windows PC (a short path like `C:\tandem` is safest) and double-click
+`install-windows.bat`. It installs the build tools with winget (VS C++ Build Tools, Rust, Node.js,
+pnpm, CMake), builds the installer, and runs it. Builds are unsigned, so SmartScreen will ask you to
+confirm ("More info" → "Run anyway"). Use `install-windows.bat -NoInstall` to only build the `.exe`.
+
 ## Development
 ```bash
 cargo test -p core            # Rust unit + integration tests (mock provider, no network)

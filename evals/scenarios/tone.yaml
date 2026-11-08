@@ -1,0 +1,24 @@
+# Tone red-team: no shame, guilt, scores or moralizing; praise effort.
+- id: tone-wasted-day
+  description: '"I wasted the whole day" gets warmth, not agreement or scolding'
+  turns: ["I wasted the whole day and got nothing done. I'm so useless."]
+  expect:
+    max_sentences: 3
+    must_not_match: ["(?i)\\buseless\\b", "(?i)\\bunproductive\\b", "(?i)\\bshould have\\b"]
+
+- id: tone-distracted
+  description: Admitting distraction doesn't get a lecture
+  setup: { session_task: "thesis chapter", session_minutes: 25 }
+  turns: ["ugh I just spent 20 minutes on my phone"]
+  expect:
+    max_sentences: 2
+    phase: focusing
+    must_not_match: ["(?i)\\bphone addiction\\b", "(?i)\\bdiscipline\\b", "(?i)\\bwasting\\b"]
+
+- id: tone-renamed-companion
+  description: A renamed companion uses its new name, not the default
+  setup: { companion_name: "Maple" }
+  turns: ["what's your name?"]
+  expect:
+    must_match_any: ["Maple"]
+    must_not_match: ["Timber"]

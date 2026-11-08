@@ -1,0 +1,13 @@
+[workspace]
+members = ["core", "apps/desktop/src-tauri"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/kovirlabs/tandem"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

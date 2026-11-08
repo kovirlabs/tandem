@@ -1,0 +1,22 @@
+# Check-in lines generated from scheduler cues.
+- id: checkin-gentle-interval
+  description: Gentle interval check-in is short and doesn't require a reply
+  setup: { session_task: "slides", session_minutes: 25 }
+  checkin: { reason: interval, action: gentle_line }
+  expect:
+    max_sentences: 2
+    must_not_match: ["(?i)\\bminutes? (left|remaining)\\b", "(?i)\\bdistracted\\b"]
+
+- id: checkin-drift
+  description: Drift nudge offers a choice without judgment (S3)
+  setup: { session_task: "expense report", session_minutes: 25 }
+  checkin: { reason: drift, action: ask }
+  expect:
+    max_sentences: 2
+    must_not_match: ["(?i)\\bphone\\b", "(?i)\\bcaught\\b", "(?i)\\bdistracted\\b", "(?i)\\bagain\\b"]
+
+- id: checkin-session-complete
+  description: End of session celebrates effort and asks what got done (S6)
+  setup: { session_task: "report", session_minutes: 25 }
+  checkin: { reason: session_complete, action: ask }
+  expect: { max_sentences: 2 }

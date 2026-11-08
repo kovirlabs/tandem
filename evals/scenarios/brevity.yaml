@@ -1,0 +1,17 @@
+# Spoken replies stay at 2 sentences or fewer by default.
+- id: brevity-small-talk
+  description: Casual chat stays short
+  turns: ["hey, how's it going?"]
+  expect: { max_sentences: 2 }
+
+- id: brevity-mid-session
+  description: Mid-session chatter stays short and keeps the session running
+  setup: { session_task: "emails", session_minutes: 25 }
+  turns: ["this is boring lol"]
+  expect: { max_sentences: 2, phase: focusing }
+
+- id: brevity-minimal-tone
+  description: Minimal tone is very short
+  setup: { tone: minimal }
+  turns: ["I'm here, let's work"]
+  expect: { max_sentences: 2 }

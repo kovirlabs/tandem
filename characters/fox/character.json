@@ -1,0 +1,25 @@
+{
+  "id": "fox",
+  "name": "Red Fox",
+  "author": "Kovir Labs",
+  "license": "CC-BY-4.0",
+  "rive_file": "fox.riv",
+  "state_machine": "Companion",
+  "inputs": {
+    "state": "state",
+    "progress": "progress",
+    "mouth": "mouthOpen"
+  },
+  "state_values": {
+    "idle": 0,
+    "working": 1,
+    "listening": 2,
+    "thinking": 3,
+    "talking": 4,
+    "waiting": 5,
+    "celebrating": 6,
+    "break": 7,
+    "sleeping": 8
+  },
+  "default_voice": null
+}

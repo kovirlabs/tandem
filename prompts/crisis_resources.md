@@ -1,0 +1,1 @@
+If you're thinking about hurting yourself, you deserve support right now. In the US you can call or text 988, in the UK and Ireland you can call Samaritans at 116 123, and elsewhere findahelpline.com lists free, confidential lines. If you might be in immediate danger, please call your local emergency number. I'm still here with you.

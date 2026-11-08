@@ -1,0 +1,91 @@
+[
+  {
+    "name": "start_session",
+    "description": "Start a focus session for a task. Use when the user names something they want to work on.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "task": { "type": "string", "description": "Short task title in the user's words" },
+        "minutes": { "type": "integer", "minimum": 5, "maximum": 120, "description": "Session length; default 25" },
+        "checkin_mode": { "type": "string", "enum": ["silent", "gentle", "conversational"] }
+      },
+      "required": ["task"]
+    }
+  },
+  {
+    "name": "pause_session",
+    "description": "Pause the current focus session.",
+    "parameters": { "type": "object", "properties": {} }
+  },
+  {
+    "name": "resume_session",
+    "description": "Resume a paused focus session.",
+    "parameters": { "type": "object", "properties": {} }
+  },
+  {
+    "name": "extend_session",
+    "description": "Add minutes to the current focus session.",
+    "parameters": {
+      "type": "object",
+      "properties": { "minutes": { "type": "integer", "minimum": 1, "maximum": 60 } },
+      "required": ["minutes"]
+    }
+  },
+  {
+    "name": "end_session",
+    "description": "End the current focus session, optionally saving a one-line reflection on what got done.",
+    "parameters": {
+      "type": "object",
+      "properties": { "reflection": { "type": "string" } }
+    }
+  },
+  {
+    "name": "start_break",
+    "description": "Start a break timer.",
+    "parameters": {
+      "type": "object",
+      "properties": { "minutes": { "type": "integer", "minimum": 1, "maximum": 60 } },
+      "required": ["minutes"]
+    }
+  },
+  {
+    "name": "add_subtasks",
+    "description": "Add concrete subtasks to the current task's checklist. Use 3 to 5 small, specific items.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "items": { "type": "array", "items": { "type": "string" }, "minItems": 1, "maxItems": 8 }
+      },
+      "required": ["items"]
+    }
+  },
+  {
+    "name": "complete_subtask",
+    "description": "Mark a subtask as done by its id.",
+    "parameters": {
+      "type": "object",
+      "properties": { "id": { "type": "string" } },
+      "required": ["id"]
+    }
+  },
+  {
+    "name": "set_quiet",
+    "description": "Stop spoken or written check-ins for a number of minutes.",
+    "parameters": {
+      "type": "object",
+      "properties": { "minutes": { "type": "integer", "minimum": 1, "maximum": 240 } },
+      "required": ["minutes"]
+    }
+  },
+  {
+    "name": "set_character_state",
+    "description": "Explicit animation cue for the companion character. Rarely needed.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "state": { "type": "string", "enum": ["idle", "working", "listening", "thinking", "talking", "waiting", "celebrating", "break", "sleeping"] }
+      },
+      "required": ["state"]
+    }
+  }
+]

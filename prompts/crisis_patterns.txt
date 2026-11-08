@@ -1,0 +1,35 @@
+# Phrases that trigger the deterministic crisis-resource safety net (core/src/conversation/safety.rs).
+# One lowercase phrase per line; matched as substrings of the normalized user message.
+# The model's prompt handles nuance; this list only guarantees resources are never missing.
+kill myself
+killing myself
+end my life
+ending my life
+take my own life
+want to die
+wanna die
+wish i was dead
+wish i were dead
+better off dead
+better off without me
+don't want to be alive
+dont want to be alive
+don't want to live
+dont want to live
+no reason to live
+not worth living
+can't go on
+cant go on
+suicide
+suicidal
+hurt myself
+hurting myself
+harm myself
+harming myself
+self harm
+self-harm
+cut myself
+cutting myself
+disappear forever
+i'm a burden
+im a burden

@@ -1,0 +1,22 @@
+[package]
+name = "tandem-desktop"
+version = "0.1.0"
+description = "Tandem desktop shell"
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "tandem_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.4", features = [] }
+
+[dependencies]
+core = { version = "0.1.0", path = "../../../core", features = ["tauri"] }
+serde_json = "1.0.154"
+tauri = { version = "2.12.5", features = ["macos-private-api", "tray-icon"] }
+tauri-plugin-global-shortcut = "2.4.1"
+tokio = { version = "1.54.1", features = ["macros"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }

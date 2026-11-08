@@ -1,0 +1,2 @@
+[Check-in cue, not from the user] It is a scheduled check-in moment ({{checkin_reason}}). Style: {{checkin_style}}.
+Write the single line you would say right now. If the style is "gentle", say a brief, warm line that needs no answer. If the style is "ask", ask one short, optional question about how it's going. Do not call tools. Do not mention timers, scores, or how long they've been working unless the reason is a time warning.

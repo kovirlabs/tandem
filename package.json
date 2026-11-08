@@ -1,0 +1,20 @@
+{
+  "name": "tandem",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Tandem — an AI body-doubling companion (Kovir Labs)",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "pnpm --filter @tandem/ui dev",
+    "build": "pnpm --filter @tandem/ui build",
+    "lint": "pnpm --filter @tandem/ui lint",
+    "typecheck": "pnpm --filter @tandem/ui typecheck",
+    "test": "pnpm --filter @tandem/ui test",
+    "gen:ipc": "rm -rf ui/src/ipc/generated && cargo test -p core export_bindings --quiet && node scripts/gen-ipc-index.mjs",
+    "evals": "cargo run -q -p core --features evals --bin evals --"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.4"
+  }
+}

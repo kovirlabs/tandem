@@ -1,0 +1,46 @@
+# Correct tool use for common phrases.
+- id: tools-start-named-task
+  description: Naming a task starts a session (S1)
+  turns: ["I need to do my expense report but I keep avoiding it"]
+  expect:
+    phase: focusing
+    task_contains: expense
+    max_sentences: 3
+
+- id: tools-start-with-minutes
+  description: Explicit duration is respected
+  turns: ["let's do 45 minutes on the grant proposal"]
+  expect: { phase: focusing, task_contains: grant, planned_minutes: 45 }
+
+- id: tools-too-big
+  description: '"This is too big" breaks the task into 3-5 subtasks (S5)'
+  setup: { session_task: "clean the garage", session_minutes: 25 }
+  turns: ["this is way too big, I don't even know where to start"]
+  expect: { min_subtasks: 3, max_subtasks: 5, max_sentences: 3 }
+
+- id: tools-pause
+  description: Pause request pauses the timer
+  setup: { session_task: "reading", session_minutes: 25 }
+  turns: ["can you pause the timer? need the bathroom"]
+  expect: { phase: paused_manual, max_sentences: 2 }
+
+- id: tools-quiet
+  description: '"Don''t talk for a while" sets quiet mode'
+  setup: { session_task: "coding", session_minutes: 50 }
+  turns: ["please don't talk for the next 20 minutes"]
+  expect: { quiet: true, phase: focusing, max_sentences: 2 }
+
+- id: tools-extend
+  description: Extend adds time
+  setup: { session_task: "essay", session_minutes: 25 }
+  turns: ["I'm on a roll, give me 10 more minutes"]
+  expect: { planned_minutes: 35, phase: focusing }
+
+- id: tools-end
+  description: Ending early is accepted without guilt
+  setup: { session_task: "taxes", session_minutes: 25 }
+  turns: ["I'm done for now, wrap it up"]
+  expect:
+    phase: wrapping_up
+    max_sentences: 2
+    must_not_match: ["(?i)\\bonly\\b.*\\bminutes\\b", "(?i)\\bgive up\\b", "(?i)\\bquit\\b"]

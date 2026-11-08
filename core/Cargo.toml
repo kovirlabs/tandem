@@ -1,0 +1,56 @@
+[package]
+name = "core"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Tandem core: sessions, check-ins, conversation, provider routing and privacy enforcement."
+
+[lib]
+name = "tandem_core"
+
+[[bin]]
+name = "evals"
+path = "src/bin/evals.rs"
+required-features = ["evals"]
+
+[dependencies]
+async-trait = "0.1.92"
+base64 = "0.23.1"
+chrono = { version = "0.4.45", features = ["serde"] }
+futures = "0.3.34"
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service"] }
+reqwest = { version = "0.13.5", features = ["json", "stream"] }
+rusqlite = { version = "0.41.1", features = ["bundled"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+sha2 = "0.10"
+serde_yaml = { version = "0.9.34", optional = true }
+tauri = { version = "2.12.5", optional = true }
+thiserror = "2.0.21"
+tokio = { version = "1.54.1", features = ["rt-multi-thread", "macros", "sync", "time", "fs", "io-util"] }
+tracing = "0.1.44"
+ts-rs = { version = "12.0.1", features = ["serde-json-impl", "chrono-impl", "uuid-impl"] }
+url = "2.5.8"
+uuid = { version = "1.29.1", features = ["v4", "serde"] }
+# --- M2 voice: input agent adds deps below this line (cpal, whisper-rs, ort/silero) ---
+cpal = "0.18.2"
+whisper-rs = "0.16.0"
+ort = "=2.0.0-rc.15"
+# --- M2 voice: output agent adds deps below this line (piper, rodio/playback) ---
+# Piper TTS = `ort` (above, shared with the input lane) + pure-Rust espeak-ng phonemizer (ADR 0004).
+espeak-ng = { version = "0.2.0", default-features = false, features = ["bundled-data-en"] }
+unicode-normalization = "0.1.25"
+
+[dev-dependencies]
+tempfile = "3.27.0"
+tokio = { version = "1.54.1", features = ["test-util", "macros", "rt-multi-thread"] }
+
+
+[features]
+default = []
+tauri = ["dep:tauri"]
+evals = ["dep:serde_yaml"]
+
+# M2 voice (input agent): whisper.cpp on the GPU via Metal on macOS.
+[target.'cfg(target_os = "macos")'.dependencies]
+whisper-rs = { version = "0.16.0", features = ["metal"] }

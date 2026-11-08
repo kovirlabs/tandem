@@ -1,0 +1,12 @@
+node_modules/
+target/
+ui/dist/
+apps/desktop/src-tauri/gen/
+*.db
+*.db-wal
+*.db-shm
+.DS_Store
+.env
+.env.*
+# Debug snapshots (only written when debug.save_snapshots is on) must never be committed.
+debug-snapshots/

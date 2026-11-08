@@ -3,11 +3,30 @@
 Living document. Milestones come from SPEC §8; this file tracks status and keeps feature
 concepts that aren't fully specified yet so they don't get lost. Update it when scope changes.
 
+## Where things stand (handoff, 2026-11-08)
+Read this first if you're picking the project up in a new session or on another machine.
+
+- **Repo:** `kovirlabs/tandem` (public), default branch `main`. License GPL-3.0-or-later (ADR 0003).
+- **Built but not yet hand-tested:** M2 voice. Plan and integration checklist:
+  `docs/superpowers/plans/2026-11-08-m2-voice.md`. Piper integration: ADR 0004.
+- **Next step:** manual test on Windows (laptop) and macOS. Settings → Voice → enable, download
+  `base.en` + a voice, then hold Ctrl/Cmd+Shift+Space to talk. Watch for gaps between sentences,
+  barge-in echo in hands-free mode, and whether the global shortcut registers.
+- **Windows install:** download the installer from Actions → "Windows installer" (artifact
+  `tandem-windows-installer`), or run `install-windows.bat` from a source checkout.
+- **First GitHub CI run** (3 OSes) and the first Windows build were started 2026-11-08. If they
+  failed, fixing them comes before anything else.
+- **AI provider for testing:** Ollama on the LAN at `http://192.168.86.43:11434`, model
+  `qwen3:14b` (or `hermes3:8b` for faster voice replies). Tick "I control this computer". The
+  Anthropic key goes in Settings (OS keychain/Credential Manager), never in a file.
+- **Not done yet:** prompt evals against `qwen3:14b`; listening test for the default voice
+  (provisional: Kristin; lessac is excluded for license reasons); the follow-ups listed under M2 below.
+
 ## Milestone status
 
 | Milestone | Status | Notes |
 |-----------|--------|-------|
-| **M0 Skeleton** | ✅ Done (2026-11-07) | Tauri + React + Rust core + SQLite + CI workflow (CI not yet run on GitHub) |
+| **M0 Skeleton** | ✅ Done (2026-11-07) | Tauri + React + Rust core + SQLite + CI workflow (first GitHub CI run 2026-11-08) |
 | **M1 Text MVP** | ✅ Done (2026-11-07) | Sessions, check-ins, Ollama + Anthropic, tools, evals, SVG beaver. See ADR 0001 |
 | **Desktop Buddy (basic)** | ✅ Done (2026-11-07) | Pulled forward from M4 "mini mode". See below and ADR 0002 |
 | **Red Fox character** | ✅ Done (2026-11-07) | Second built-in pack (SVG fallback) with a growing den; character picker in Settings |
